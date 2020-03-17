@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back6"
+    tools:context=".Home">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Smart"
+        android:layout_marginLeft="45dp"
+        android:textColor="#fff"
+        android:textSize="50dp"
+        android:fontFamily="@font/lorabolditalic"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Masjid"
+        android:layout_marginLeft="155dp"
+        android:textColor="#fff"
+        android:textSize="50dp"
+        android:layout_marginTop="-20dp"
+        android:fontFamily="@font/lorabolditalic" />
+
+
+
+    <Button
+        android:id="@+id/identitas"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Identitas Masjid"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#C9494949"
+        android:layout_gravity="center"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="65dp" />
+
+    <Button
+        android:id="@+id/jadwal"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Jadwal Sholat"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#AB494949"
+        android:layout_marginLeft="22dp"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/marquee"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Marquee"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#C9494949"
+        android:layout_marginLeft="22dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/pengumuman"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Pengumuman"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#AB494949"
+        android:layout_marginLeft="22dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/slideshow"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Slideshow"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#C9494949"
+        android:layout_marginLeft="22dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/tagline"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="Tagline"
+        android:fontFamily="@font/lorabold"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:backgroundTint="#AB494949"
+        android:layout_marginLeft="22dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designed by Adhyaksa"
+        android:fontFamily="@font/libreitalic"
+        android:textSize="17dp"
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="100dp"/>
+</LinearLayout>
