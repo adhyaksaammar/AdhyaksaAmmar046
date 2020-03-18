@@ -37,11 +37,11 @@ class TambahData : AppCompatActivity() {
     }
 
     fun postkeserver(data1:String, data2:String, data3:String, data4:String){
-        AndroidNetworking.post("http://192.168.1.88/project-uts/proses-penduduk.php")
+        AndroidNetworking.post("https://projectammar.000webhostapp.com/project-uts/proses-penduduk.php")
             .addBodyParameter("nama_penduduk", data1)
             .addBodyParameter("ttl_penduduk", data2)
             .addBodyParameter("hp_penduduk", data3)
-            .addBodyParameter("alamat_mahasiswa", data4)
+            .addBodyParameter("alamat_penduduk", data4)
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONArray(object : JSONArrayRequestListener {

@@ -36,7 +36,7 @@ class Penduduk : AppCompatActivity() {
 
         val users = ArrayList<Data>()
 //        "https://mhs-data.000webhostapp.com/mahasiswa-json.php"
-        AndroidNetworking.get("http://192.168.1.88/project-uts/penduduk-json.php")
+        AndroidNetworking.get("https://projectammar.000webhostapp.com/project-uts/penduduk-json.php")
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
@@ -46,13 +46,13 @@ class Penduduk : AppCompatActivity() {
                     val jsonArray = response.getJSONArray("result")
                     for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.getJSONObject(i)
-                        Log.e("_kotlinTitle", jsonObject.optString("nama_mahasiswa"))
+                        Log.e("_kotlinTitle", jsonObject.optString("nama_penduduk"))
 
                         // txt1.setText(jsonObject.optString("shubuh"))
-                        var isi1 = jsonObject.optString("nama_mahasiswa").toString()
+                        var isi1 = jsonObject.optString("nama_penduduk").toString()
                         var isi2 = jsonObject.optString("ttl_penduduk").toString()
                         var isi3 = jsonObject.optString("hp_penduduk").toString()
-                        var isi4 = jsonObject.optString("alamat_mahasiswa").toString()
+                        var isi4 = jsonObject.optString("alamat_penduduk").toString()
 
                         users.add(Data("$isi1", "$isi2", "$isi3","$isi4"))
                     }

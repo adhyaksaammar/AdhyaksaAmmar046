@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val context = this
+
         val sharedPreferences = getSharedPreferences("CEKLOGIN", Context.MODE_PRIVATE)
         val stat=sharedPreferences.getString("STATUS","")
 
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     fun postkerserver(data1:String,data2:String)
     {
-        AndroidNetworking.post("http://192.168.1.88/project-uts/ceklogin.php")
+        AndroidNetworking.post("https://projectammar.000webhostapp.com/project-uts/ceklogin.php")
             .addBodyParameter("username", data1)
             .addBodyParameter("password", data2)
             .setPriority(Priority.MEDIUM)
