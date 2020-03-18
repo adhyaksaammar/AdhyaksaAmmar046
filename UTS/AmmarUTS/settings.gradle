@@ -1,0 +1,2 @@
+rootProject.name='AmmarUTS'
+include ':app'
