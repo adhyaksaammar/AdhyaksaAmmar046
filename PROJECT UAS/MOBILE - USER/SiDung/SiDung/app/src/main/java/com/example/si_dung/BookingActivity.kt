@@ -1,0 +1,161 @@
+package com.example.si_dung
+
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.DatePicker
+import android.widget.RadioButton
+import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.common.Priority
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONArrayRequestListener
+import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.example.si_dung.Fragment.BookingFragment
+import com.example.si_dung.Fragment.HomeFragment
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.DexterBuilder
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.android.synthetic.main.activity_booking.*
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.*
+import java.util.jar.Manifest
+
+class BookingActivity : AppCompatActivity() {
+
+    lateinit var radioGedungbtn: RadioButton
+    lateinit var radioJenisbtn: RadioButton
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_booking)
+
+        pilih_surat.setOnClickListener(){
+            Dexter.withActivity(this)
+                .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(object : PermissionListener{
+
+                    override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        p0: PermissionRequest?,
+                        p1: PermissionToken?
+                    ) {
+                        p1?.continuePermissionRequest()
+                    }
+
+                    override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                        if (p0?.isPermanentlyDenied!!){
+                            val dialogBuilder = AlertDialog.Builder(this@BookingActivity)
+                            dialogBuilder.setTitle("Permission Required")
+                                .setMessage("Permission to access your device storage is required to pick file. Please go to setting to enable permission to access storage.")
+                                .setPositiveButton("OK", null)
+                                .setNegativeButton("Cancel", null)
+                                .show()
+
+                        }
+                    }
+
+                })
+                .check()
+
+        }
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        pickDate.setOnClickListener(){
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, nyear, nmonth, ndayOfMonth ->
+                dateTv.setText(""+ nyear +"/"+ nmonth +"/"+ ndayOfMonth)
+            }, year, month, day)
+            dpd.show()
+        }
+
+        val nomor = getSharedPreferences("NOMOR", Context.MODE_PRIVATE)
+        val ndata = nomor.getString("no_pinjam","").toString()
+        Log.d("NOMOR", ndata)
+
+        btn_send.setOnClickListener(){
+            var no_pinjam: String =  ndata
+            var nama: String = book_nama.text.toString()
+            var nim: String = book_nim.text.toString()
+            var fakultas: String = book_fakultas.text.toString()
+            var orga: String = book_orga.text.toString()
+
+            val selectedGedung = radioGedung.checkedRadioButtonId
+            radioGedungbtn = findViewById(selectedGedung)
+            var nama_gedung: String = radioGedungbtn.text.toString()
+
+            var tanggal_pinjam = dateTv.text.toString()
+            var waktu_pinjam = book_waktu.text.toString()
+
+            val selectedJenis = radioJenis.checkedRadioButtonId
+            radioJenisbtn = findViewById(selectedJenis)
+            var jenis_acara: String = radioJenisbtn.text.toString()
+
+            var deskripsi: String = book_deskripsi.text.toString()
+
+            var surat_permohonan: String = "-"
+            var ktm: String = "-"
+            var status: String = "-"
+
+            booking(no_pinjam, nama, nim, fakultas, orga, nama_gedung, tanggal_pinjam, waktu_pinjam, jenis_acara, deskripsi, surat_permohonan, ktm, status)
+
+            book_nama.setText("")
+            book_nim.setText("")
+            book_fakultas.setText("")
+            book_deskripsi.setText("")
+            book_orga.setText("")
+            book_waktu.setText("")
+            dateTv.setText("")
+            radioGedung.clearCheck()
+            radioJenis.clearCheck()
+            Toast.makeText(this@BookingActivity, "Data Berhasil Dikirim", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun booking(data1: String, data2: String, data3: String, data4: String, data5: String, data6: String, data7: String, data8: String, data9: String, data10: String, data11: String, data12: String, data13: String){
+        AndroidNetworking.post("http://192.168.43.18/sidung/users/proses-create-peminjaman.php")
+            .addBodyParameter("no_pinjam", data1)
+            .addBodyParameter("nama", data2)
+            .addBodyParameter("nim", data3)
+            .addBodyParameter("fakultas", data4)
+            .addBodyParameter("nama_organisasi", data5)
+            .addBodyParameter("nama_gedung", data6)
+            .addBodyParameter("tanggal_pinjam", data7)
+            .addBodyParameter("waktu_pinjam", data8)
+            .addBodyParameter("jenis_acara", data9)
+            .addBodyParameter("deskripsi_acara", data10)
+            .addBodyParameter("surat_permohonan", data11)
+            .addBodyParameter("ktm", data12)
+            .addBodyParameter("status", data13)
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONArray(object : JSONArrayRequestListener{
+                override fun onResponse(response: JSONArray?) {
+
+                }
+
+                override fun onError(anError: ANError?) {
+
+                }
+            })
+
+    }
+
+}
